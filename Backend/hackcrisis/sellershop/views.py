@@ -5,8 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from . models import Image,Product
-from . serializers import ProductSerializer
+# from . serializers import ProductSerializer
 import requests
 from .models import Shop,Item,Order
 import json
