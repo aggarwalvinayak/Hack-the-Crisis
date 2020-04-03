@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-# from . serializers import ProductSerializer
+from . serializers import ItemSerializer,ShopSerializer,OrderSerializer
 import requests
 from .models import Shop,Item,Order
 import json
@@ -21,10 +21,12 @@ from django.http import JsonResponse
 from google.cloud import storage
 from datetime import timedelta
 
-
 class ShopList(APIView):
 	def get(self,request):
-		return Response("ShopList APIView")
+		shopss=Shop.objects.all()
+		serializer = ShopSerializer(shopss,many = True)
+
+		return Response(serializer.data)
 	def post(self,request):
 		shopname = request.POST.get('name')
 		gst_no = request.POST.get('gst')
@@ -39,7 +41,10 @@ class ShopList(APIView):
 
 class OrderList(APIView):
 	def get(self,request):
-		return Response("OrderList APIView")
+		shopss=Order.objects.all()
+		serializer = OrderSerializer(shopss,many = True)
+
+		return Response(serializer.data)
 
 	def post(self,request):
 		orderno = (Order.objects.order_by('-id')[0]).orderno + 1
@@ -62,7 +67,10 @@ class OrderList(APIView):
 class ItemList(APIView):
 
 	def get(self,request):
-		return Response("ItemList APIView")
+		shopss=Item.objects.all()
+		serializer = ItemSerializer(shopss,many = True)
+
+		return Response(serializer.data)
 
 	def post(self,request):#only one entry per post request
 		itemname = request.POST.get('name')
