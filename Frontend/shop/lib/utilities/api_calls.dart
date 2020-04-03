@@ -2,63 +2,54 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 class ApiCalls {
   static const serverIp = 'http://192.168.43.41:3000';
+  static Dio dio;
 
-  static dynamic getRequest(List<String> pathList, List<List<String>> args) async {
-    String urlRequest = serverIp;
+  static dynamic getRequest(
+      List<String> pathList, Map<String, dynamic> parameters) async {
+    Response response;
 
+    String url = serverIp;
     for (var path in pathList) {
-      urlRequest = urlRequest + '/' + path;
+      url = url + '/' + path;
     }
 
-    for (int i = 0; i < args.length; i++) {
-      if (i == 0)
-        urlRequest = urlRequest + '?' + args[i][0] + '=' + args[i][1];
-      else
-        urlRequest = urlRequest + '&' + args[i][0] + '=' + args[i][1];
-    }
+    if (dio == null) dio = Dio();
 
     try {
-      Response response = await get(urlRequest);
+      response = await dio.get(url, queryParameters: parameters);
       if (response.statusCode == 200)
-        return response.body;
+        return response.data;
       else
         return null;
-    } on TimeoutException catch (_) {
-      return null;
-    } on SocketException catch (_) {
+    } on DioError catch (e) {
+      print("Connection error:" + e.toString());
       return null;
     }
   }
 
   static dynamic postRequest(
-      List<String> pathList, Map<String, dynamic> args) async {
-    String urlRequest = serverIp;
+      List<String> pathList, Map<String, dynamic> parameters) async {
+    Response response;
 
+    String url = serverIp;
     for (var path in pathList) {
-      urlRequest = urlRequest + '/' + path;
+      url = url + '/' + path;
     }
 
-    for (int i = 0; i < args.length; i++) {
-      if (i == 0)
-        urlRequest = urlRequest + '?' + args[i][0] + '=' + args[i][1];
-      else
-        urlRequest = urlRequest + '&' + args[i][0] + '=' + args[i][1];
-    }
+    if (dio == null) dio = Dio();
 
-    Uri uri = Uri.parse(urlRequest);
     try {
-      Response response = await post(uri, body: jsonEncode(args));
+      response = await dio.post(url, data: FormData.fromMap(parameters));
       if (response.statusCode == 200)
-        return response.body;
+        return response.data;
       else
         return null;
-    } on TimeoutException catch (_) {
-      return null;
-    } on SocketException catch (_) {
+    } on DioError catch (e) {
+      print("Connection Error:" + e.toString());
       return null;
     }
   }

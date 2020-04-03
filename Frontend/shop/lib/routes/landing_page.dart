@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop/routes/dashboard.dart';
 import 'package:shop/routes/login_page.dart';
@@ -10,16 +11,13 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-
   _LandingPageState() {
-
     //Hardcode Login
-
 
     SharedPreferences.getInstance().then((_sharedPreferences) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => Dashboard(
-              shopDetailsString: jsonEncode({
+                  shopDetailsString: jsonEncode({
                 'phoneNumber': '1234567890',
                 'gst': '1231433463587357',
                 'id': '123',
@@ -57,6 +55,11 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(child: Center(child: CircularProgressIndicator())));
+      body: Center(
+        child: SpinKitCubeGrid(
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+    );
   }
 }
