@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 class ApiCalls {
-  static const serverIp = 'http://192.168.43.41:3000';
+  static const serverIp = 'http://3.20.217.170:8080';
   static Dio dio;
 
   static dynamic getRequest(
@@ -16,6 +16,7 @@ class ApiCalls {
     for (var path in pathList) {
       url = url + '/' + path;
     }
+    url = url + '/';
 
     if (dio == null) dio = Dio();
 
@@ -39,6 +40,7 @@ class ApiCalls {
     for (var path in pathList) {
       url = url + '/' + path;
     }
+    url = url + '/';
 
     if (dio == null) dio = Dio();
 

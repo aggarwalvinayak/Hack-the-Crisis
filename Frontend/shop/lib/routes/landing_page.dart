@@ -15,7 +15,7 @@ class _LandingPageState extends State<LandingPage> {
     //Hardcode Login
 
     SharedPreferences.getInstance().then((_sharedPreferences) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+      /*  Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => Dashboard(
                   shopDetailsString: jsonEncode({
                 'phoneNumber': '1234567890',
@@ -24,7 +24,7 @@ class _LandingPageState extends State<LandingPage> {
                 'location': ['122.21', '121.21'],
                 'verificationStatus': true
               }))));
-      return;
+      return;*/
       //Checks for login
       bool _isLoggedIn = _sharedPreferences.getBool('isLoggedIn');
 

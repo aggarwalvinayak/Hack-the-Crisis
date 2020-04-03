@@ -4,6 +4,7 @@ class ShopDetails {
   final String id;
   final String gst;
   final String phoneNumber;
+  final String category;
   final List<double> location;
   final bool verificationStatus;
 
@@ -12,12 +13,16 @@ class ShopDetails {
       this.gst,
       this.phoneNumber,
       this.location,
-      this.verificationStatus});
+      this.verificationStatus,
+      this.category});
 
   ShopDetails.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         gst = json['gst'],
-        location = List<String>.from(json['location']).map((e) => double.parse(e)).toList(),
+        location = List<String>.from(json['location'])
+            .map((e) => double.parse(e))
+            .toList(),
         verificationStatus = json['verificationStatus'],
-        phoneNumber = json['phoneNumber'];
+        phoneNumber = json['phoneNumber'],
+        category = json['category'];
 }

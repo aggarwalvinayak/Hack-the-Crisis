@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _navigatorKey = GlobalKey<NavigatorState>();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.red,
+        statusBarIconBrightness: Brightness.light
+    ));
     return MaterialApp(
       key: _navigatorKey,
       title: 'Shop',
