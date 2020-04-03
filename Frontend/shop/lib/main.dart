@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Shop',
       theme: ThemeData(
         canvasColor: Color.fromRGBO(225, 235, 245, 1),
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.red,
       ),
       home: LandingPage(),
     );

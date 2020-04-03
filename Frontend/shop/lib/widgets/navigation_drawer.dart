@@ -11,7 +11,7 @@ class NavigationDrawer extends StatelessWidget {
         DrawerHeader(
           child: Consumer<ShopDetails>(
             builder: (context, shopDetails, child) {
-              return Text(shopDetails.phoneNumber, style: TextStyle(
+              return Text('Welcome!\n'+shopDetails.phoneNumber, style: TextStyle(
                 color: Colors.white
               ));
             },
@@ -21,7 +21,12 @@ class NavigationDrawer extends StatelessWidget {
           ),
         ),
         ListTile(
+          leading: Icon(Icons.description),
           title: Text('Manage Products'),
+        ),
+        ListTile(
+          leading: Icon(Icons.exit_to_app),
+          title: Text('Logout'),
         ),
       ],
     ));

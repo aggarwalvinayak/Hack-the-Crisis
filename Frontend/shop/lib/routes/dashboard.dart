@@ -5,6 +5,8 @@ import 'package:shop/models/order.dart';
 import 'package:shop/models/shop_details.dart';
 import 'package:shop/widgets/navigation_drawer.dart';
 import 'package:shop/tabs/dashboard/pending.dart';
+import 'package:shop/tabs/dashboard/approved.dart';
+import 'package:shop/tabs/dashboard/completed.dart';
 
 class Dashboard extends StatefulWidget {
   final String shopDetailsString;
@@ -55,13 +57,13 @@ class _DashboardState extends State<Dashboard>
           drawer: NavigationDrawer(),
           key: _scaffoldKey,
           backgroundColor: Theme.of(context).canvasColor,
-          appBar: AppBar(),
+          appBar: AppBar(title: Text('Dashboard'), centerTitle: true, elevation: 3,),
           body: TabBarView(
             controller: _tabController,
             children: <Widget>[
               PendingTab(),
-              Container(child: Text(Status.APPROVED.toString())),
-              Container(child: Text(Status.COMPLETED.toString())),
+              ApprovedTab(),
+              CompletedTab(),
             ],
           ),
           bottomNavigationBar: Card(
