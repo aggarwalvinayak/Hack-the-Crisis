@@ -7,7 +7,7 @@ class ItemAdmin(admin.ModelAdmin):
 class ShopAdmin(admin.ModelAdmin):
     list_display = ('shopname','gst_no','categ','user','isverify','lat','loc')
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('ordereno','item','shop','person','status')
+    list_display = ('item','shop','person','status')
 
 admin.site.register(Item,ItemAdmin)
 admin.site.register(Order,OrderAdmin)
