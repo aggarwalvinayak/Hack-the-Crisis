@@ -63,33 +63,25 @@ class _CompletedTabState extends State<CompletedTab> {
       setState(() {
         isLoaded = true;
 
-        widget.completedOrdersList = orders;
-        /*widget.completedOrdersList = [
-          Order.fromJson({
-            'itemId': ['12345', '23456'],
-            'shopId': '1234',
-            'quantity': [1, 2],
-            'aadharNo': '1234-5678-9012',
-            'toLocation': 'Kurla',
-            'status': 'PENDING'
-          }),
+        //widget.completedOrdersList = orders;
+        widget.completedOrdersList = [
           Order.fromJson({
             'itemId': ['121351345', '696956'],
             'shopId': '1234',
             'quantity': [3, 4],
             'aadharNo': '1235-5678-9012',
-            'toLocation': 'Andheri',
-            'status': 'PENDING'
+            'toLocation': 'Kurla',
+            'status': 'COMPLETED'
           }),
           Order.fromJson({
             'itemId': ['5321', '61314'],
             'shopId': '1234',
             'quantity': [5, 6],
             'aadharNo': '1234-5678-9012',
-            'toLocation': 'Chembur',
-            'status': 'PENDING'
+            'toLocation': 'Thane',
+            'status': 'COMPLETED'
           })
-        ];*/
+        ];
       });
     }
   }

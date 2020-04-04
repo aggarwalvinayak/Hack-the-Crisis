@@ -96,15 +96,15 @@ class _PendingTabState extends State<PendingTab> {
       setState(() {
         isLoaded = true;
 
-        widget.pendingOrdersList = orders;
-        /*widget.pendingOrdersList = [
+        //widget.pendingOrdersList = orders;
+        widget.pendingOrdersList = [
           Order.fromJson({
             'id':'1',
             'itemId': ['12345', '23456'],
             'shopId': _shopDetails.id,
             'quantity': [1, 2],
             'aadharNo': '1234-5678-9012',
-            'toLocation': 'Kurla',
+            'toLocation': 'Worli',
             'status': 'PENDING'
           }),
           Order.fromJson({
@@ -113,19 +113,10 @@ class _PendingTabState extends State<PendingTab> {
             'shopId': _shopDetails.id,
             'quantity': [3, 4],
             'aadharNo': '1235-5678-9012',
-            'toLocation': 'Andheri',
+            'toLocation': 'Colaba',
             'status': 'PENDING'
           }),
-          Order.fromJson({
-            'id':'3',
-            'itemId': ['5321', '61314'],
-            'shopId': _shopDetails.id,
-            'quantity': [5, 6],
-            'aadharNo': '1234-5678-9012',
-            'toLocation': 'Chembur',
-            'status': 'PENDING'
-          })
-        ];*/
+        ];
       });
     }
   }

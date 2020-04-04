@@ -75,9 +75,7 @@ class _SignupCardState extends State<SignupCard> {
 
     _locationData = await location.getLocation();
 
-    print(_locationData);
 
-    /*
     var response = await ApiCalls.postRequest([
       'registerapi'
     ], {
@@ -88,8 +86,8 @@ class _SignupCardState extends State<SignupCard> {
       "gst": gstController.text,
       "cat": _category,
       'password': passwordController.text,
-      'lat': 1,
-      'lon': 2,
+      'lat': _locationData.latitude,
+      'lon': _locationData.longitude,
       "type": 2
     });
     print(response);
@@ -116,7 +114,7 @@ class _SignupCardState extends State<SignupCard> {
         MaterialPageRoute(
             builder: (context) => Dashboard(
                   shopDetailsString: _shopDetailsString,
-                )));*/
+                )));
   }
 
   @override
