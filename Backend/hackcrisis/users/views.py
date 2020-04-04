@@ -11,6 +11,8 @@ from . models import CustomUser,People,ZoneAdmin
 from sellershop.models import Shop
 from .serializers import PeopleSerializer
 
+
+
 class Locationred(APIView):
     def get(self,request):
         peop= People.objects.filter(tag=1)
@@ -20,7 +22,9 @@ class Locationred(APIView):
 class LoginApi(APIView):
     
     def get(self,request):
-        return Response("LoginAuth APIView")
+        people = People.objects.filter(aadharno=request.data.get('aadhar'))
+        serializer = PeopleSerializer(people,many = True)
+        return Response(serializer.data)
 
     def post(self,request):
         username = request.data.get('phoneno')
@@ -103,7 +107,6 @@ class RegisterApi(APIView):
                 # print()
                 # shop.gst_no = gst_no
                 # shop.categ = categ
-
                 # shop.isverify = 0
                 # shop.lat = lat
                 # shop.loc = lon
