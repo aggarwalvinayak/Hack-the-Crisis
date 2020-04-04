@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ShopList,ItemList,OrderList
+from .views import ShopList,ItemList,OrderList,ClosestShop
 from . import views
 
 
@@ -11,5 +11,5 @@ urlpatterns = [
 	path('order/',  OrderList.as_view()),
 	path('item/',ItemList.as_view()),
 	path('shop/',ShopList.as_view()),
-
+	path('closestshop/',ClosestShop.as_view())
 ]

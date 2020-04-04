@@ -78,3 +78,20 @@ class ItemList(APIView):
 		product=Item(itemname=itemname,price=price,description=description,shop=shop,quantity_max=quantity_max)
 		product.save()
 		return Response("Item Added")
+
+class ClosestShop(APIView):
+
+	def get(self,request):
+		return Response("ClosestShop APIView")
+
+	def post(self,request):#only one entry per post request
+		lat = float(request.POST.get('lat'))
+		lon = float(request.POST.get('lon'))
+		
+		nautical_mile = 1.852
+
+		shops = Shop.objects.filter(lat__range=(lat-nautical_mile*3,lat+nautical_mile*3),loc__range =(lon-nautical_mile*3,lon+nautical_mile*3))
+		serializer = ShopSerializer(shops,many = True)
+
+		return Response(serializer.data)
+
