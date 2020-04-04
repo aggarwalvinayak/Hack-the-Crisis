@@ -36,9 +36,9 @@ class ShopList(APIView):
 
 class OrderList(APIView):
 	def get(self,request):
-		shop = request.POST.get('shop')
-		status = request.POST.get('status')
-		shopss= Order.objects.filter(shop=Shop.objects.get(id=shop))
+		shop = request.GET.get('gst')
+		status = request.GET.get('status')
+		shopss= Order.objects.filter(shop=Shop.objects.get(gst=shop))
 		shopps=shopss.filter(status=status)
 		serializer = OrderSerializer(shopss,many = True)
 		return Response(serializer.data)

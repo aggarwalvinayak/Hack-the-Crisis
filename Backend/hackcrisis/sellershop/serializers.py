@@ -10,15 +10,6 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-        return Order.objects.create(**validated_data)
-
-    class Meta:
-        model = Order
-
-        fields = '__all__'
 
 class ShopSerializer(serializers.ModelSerializer):
 
@@ -27,5 +18,18 @@ class ShopSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Shop
+
+        fields = '__all__'
+
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    shop = ShopSerializer(read_only = True)
+
+    def create(self, validated_data):
+        return Order.objects.create(**validated_data)
+
+    class Meta:
+        model = Order
 
         fields = '__all__'
