@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'sellershop',
     'newsapp',
     'location',
+    'permissions',
 ]
 
 MIDDLEWARE = [
