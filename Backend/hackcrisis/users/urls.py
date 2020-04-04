@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import LoginApi,RegisterApi,Locationred
+from .views import LoginApi,RegisterApi,Locationred,Updatetag
 from . import views
 
 
@@ -11,6 +11,8 @@ urlpatterns = [
 	path('loginapi/',  LoginApi.as_view()),
 	path('registerapi/',RegisterApi.as_view()),
 	path('redloc/',Locationred.as_view()),
+	path('updatetag/',Updatetag.as_view()),
+
 
 	
 ]
