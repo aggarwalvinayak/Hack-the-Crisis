@@ -17,6 +17,7 @@ class Updatetag(APIView):
         tg = request.GET.get('new_tag')
         user = People.objects.get(aadharno=ad)
         user.tag=tg
+        user.save()
         return Response("Changed")
 
 
