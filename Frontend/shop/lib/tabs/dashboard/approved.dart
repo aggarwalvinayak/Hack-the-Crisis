@@ -61,23 +61,15 @@ class _ApprovedTabState extends State<ApprovedTab> {
       setState(() {
         isLoaded = true;
 
-        widget.approvedOrdersList = orders;
-        /*widget.approvedOrdersList = [
-          Order.fromJson({
-            'itemId': ['12345', '23456'],
-            'shopId': '1234',
-            'quantity': [1, 2],
-            'aadharNo': '1234-5678-9012',
-            'toLocation': 'Kurla',
-            'status': 'PENDING'
-          }),
+        //widget.approvedOrdersList = orders;
+        widget.approvedOrdersList = [
           Order.fromJson({
             'itemId': ['121351345', '696956'],
             'shopId': '1234',
             'quantity': [3, 4],
             'aadharNo': '1235-5678-9012',
             'toLocation': 'Andheri',
-            'status': 'PENDING'
+            'status': 'APPROVED'
           }),
           Order.fromJson({
             'itemId': ['5321', '61314'],
@@ -85,9 +77,9 @@ class _ApprovedTabState extends State<ApprovedTab> {
             'quantity': [5, 6],
             'aadharNo': '1234-5678-9012',
             'toLocation': 'Chembur',
-            'status': 'PENDING'
+            'status': 'APPROVED'
           })
-        ];*/
+        ];
       });
     }
   }
