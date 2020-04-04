@@ -82,11 +82,9 @@ class ItemList(APIView):
 class ClosestShop(APIView):
 
 	def get(self,request):
-		return Response("ClosestShop APIView")
 
-	def post(self,request):#only one entry per post request
-		lat = float(request.POST.get('lat'))
-		lon = float(request.POST.get('lon'))
+		lat = float(request.GET.get('lat'))
+		lon = float(request.GET.get('lon'))
 		
 		nautical_mile = 1.852
 
@@ -95,3 +93,5 @@ class ClosestShop(APIView):
 
 		return Response(serializer.data)
 
+	def post(self,request):#only one entry per post request
+		return Response("ClosestShop APIView")

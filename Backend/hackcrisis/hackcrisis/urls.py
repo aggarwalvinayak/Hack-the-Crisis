@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', include('sellershop.urls')),
     path('', include('newsapp.urls')),
+    path('', include('location.urls')),
 
 ]
