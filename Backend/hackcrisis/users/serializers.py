@@ -23,3 +23,11 @@ class ZoneAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = ZoneAdmin
         fields = '__all__'
+
+class PeopleSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        return People.objects.create(**validated_data)
+    class Meta:
+        model = People
+        fields = '__all__'

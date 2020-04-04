@@ -9,6 +9,13 @@ from rest_framework import status
 
 from . models import CustomUser,People,ZoneAdmin
 from sellershop.models import Shop
+from .serializers import PeopleSerializer
+
+class Locationred(APIView):
+    def get(self,request):
+        peop= People.objects.filter(tag=1)
+        serializer = PeopleSerializer(peop,many = True)
+        return Response(serializer.data)
 
 class LoginApi(APIView):
     
@@ -64,7 +71,8 @@ class RegisterApi(APIView):
 
             if login_type == 1:
                 f_aadharno = request.data.get('aadharno')
-                f_lastloc = request.data.get('lastloc')
+                f_lat = request.data.get('lat')
+                f_lon = request.data.get('lon')
                 f_district = request.data.get('district')
                 f_tag = request.data.get('tag')
 
@@ -72,7 +80,8 @@ class RegisterApi(APIView):
 
                 if created:
                     people.aadharno =f_aadharno 
-                    people.lastloc =f_lastloc 
+                    people.lat =f_lat
+                    people.lon =f_lon
                     people.district = f_district
                     people.tag = f_tag
                     people.save()

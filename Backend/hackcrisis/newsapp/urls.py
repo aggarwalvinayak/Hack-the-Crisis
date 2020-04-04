@@ -4,7 +4,7 @@ from .views import NewsTableApi,AnnouncementsApi
 from . import views
 
 
-app_name = "mainapp"
+app_name = "newsapp"
 
 # app_name will help us do a reverse look-up latter.
 urlpatterns = [

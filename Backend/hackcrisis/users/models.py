@@ -32,7 +32,8 @@ class People(models.Model):
             on_delete=models.CASCADE,
         )
     aadharno =  models.CharField(max_length = 14)
-    lastloc = models.CharField(max_length = 50)
+    lat = models.FloatField()
+    lon = models.FloatField()
     district =  models.CharField(max_length = 50)
     tag = models.IntegerField()
 
