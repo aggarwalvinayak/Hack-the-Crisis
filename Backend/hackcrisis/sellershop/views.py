@@ -28,7 +28,7 @@ class ShopList(APIView):
 		categ = request.POST.get('cat')
 		lat = request.POST.get('lat')
 		lon = request.POST.get('lon')
-		phn = request.POST.get('phone') 
+		phone = request.POST.get('phone') 
 
 		shop=Shop(shopname=shopname,gst_no=gst_no,categ=categ,isverify=0,user=CustomUser.objects.get(phoneno=phone))
 		shop.save()

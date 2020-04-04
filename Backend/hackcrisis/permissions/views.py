@@ -23,7 +23,7 @@ class PermissionsList(APIView):
 
         return Response(serializer.data)
     def post(self,request):
-        phoneno = request.POST.get('phone')
+        phone = request.POST.get('phone')
         areaassoc = request.POST.get('areaassoc')
         permreason = request.POST.get('permreason')
         status = request.POST.get('status')
@@ -31,7 +31,9 @@ class PermissionsList(APIView):
         starttime = request.POST.get('starttime')
         endtime = request.POST.get('endtime')
 
-        perm,created = Permissions.objects.get_or_create(user=CustomUser.objects.get(phoneno=phoneno))
+        print(phone)
+        user = CustomUser.objects.get(phoneno=phone)
+        perm,created = Permissions.objects.get_or_create(user=user)
         perm.areaassoc = areaassoc
         perm.permreason = permreason
         perm.status = status
