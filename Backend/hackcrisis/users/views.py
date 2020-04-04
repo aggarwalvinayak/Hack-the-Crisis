@@ -59,7 +59,8 @@ class RegisterApi(APIView):
         f_fname = request.data.get('firstname')
         f_lname = request.data.get('lastname')
         login_type = int(request.data.get('type'))
-
+        print()
+        print()
         try:
             user,created = CustomUser.objects.get_or_create(phoneno = f_phoneno)
 
@@ -70,6 +71,7 @@ class RegisterApi(APIView):
                 user.save()
 
             if login_type == 1:
+                print(1)
                 f_aadharno = request.data.get('aadharno')
                 f_lat = request.data.get('lat')
                 f_lon = request.data.get('lon')
@@ -87,24 +89,27 @@ class RegisterApi(APIView):
                     people.save()
 
             elif login_type == 2:
+                print(2)
                 shopname = request.data.get('name')
                 gst_no = request.data.get('gst')
                 lat = float(request.data.get('lat'))
                 lon = float(request.data.get('lon'))
-                desc = request.data.get('desc')
                 categ = request.data.get('cat')
+                print(11)
+                shop,created = Shop.objects.get_or_create(user = user,gst_no=gst_no,isverify=0,lat=lat,loc=lon,categ=categ,shopname=shopname)
+                # print(33)
+                # shop.shopname = shopname 
+                # print()
+                # print()
+                # shop.gst_no = gst_no
+                # shop.categ = categ
 
-                shop,created = Shop.objects.get_or_create(user = user)
-
-                shop.shopname = shopname 
-                shop.gst_no = gst_no 
-                shop.categ = categ
-
-                shop.isverify = 0
-                shop.lat = lat
-                shop.loc = lon
+                # shop.isverify = 0
+                # shop.lat = lat
+                # shop.loc = lon
                 shop.save()
             else:
+                print(3)
                 district = request.data.get('district')
 
                 zoneadmin,created = ZoneAdmin.objects.get_or_create(user = user)
