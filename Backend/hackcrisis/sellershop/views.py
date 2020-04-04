@@ -64,7 +64,7 @@ class OrderList(APIView):
 class ItemList(APIView):
 
 	def get(self,request):
-		shopss=Item.objects.all()
+		shopss=Item.objects.filter(shop=Shop.objects.get(gst_no=request.GET.get('gst')))
 		serializer = ItemSerializer(shopss,many = True)
 
 		return Response(serializer.data)
