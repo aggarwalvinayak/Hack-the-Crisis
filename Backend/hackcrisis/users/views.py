@@ -12,9 +12,9 @@ from sellershop.models import Shop
 from .serializers import PeopleSerializer
 
 class Updatetag(APIView):
-    def get(self,request):
-        ad = request.GET.get('aadhar')
-        tg = request.GET.get('new_tag')
+    def post(self,request):
+        ad = request.POST.get('aadhar')
+        tg = request.POST.get('new_tag')
         user = People.objects.get(aadharno=ad)
         user.tag=tg
         user.save()
