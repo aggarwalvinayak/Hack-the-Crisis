@@ -22,8 +22,10 @@ class Locationred(APIView):
 class LoginApi(APIView):
     
     def get(self,request):
-        people = People.objects.filter(aadharno=request.data.get('aadhar'))
+        # print(request.data.get('aadhar'))
+        people = People.objects.filter(aadharno=request.GET.get('aadhar'))
         serializer = PeopleSerializer(people,many = True)
+        print(people)
         return Response(serializer.data)
 
     def post(self,request):
