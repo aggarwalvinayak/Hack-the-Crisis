@@ -11,6 +11,13 @@ from . models import CustomUser,People,ZoneAdmin
 from sellershop.models import Shop
 from .serializers import PeopleSerializer
 
+class Updatetag(APIView):
+    def get(self,request):
+        ad = request.GET.get('aadhar')
+        tg = request.GET.get('new_tag')
+        user = People.objects.get(aadharno=ad)
+        user.tag=tg
+        return Response("Changed")
 
 
 class Locationred(APIView):
