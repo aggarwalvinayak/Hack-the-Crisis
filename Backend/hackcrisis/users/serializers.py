@@ -25,6 +25,7 @@ class ZoneAdminSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PeopleSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer(read_only = True)
 
     def create(self, validated_data):
         return People.objects.create(**validated_data)
