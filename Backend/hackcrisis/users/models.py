@@ -38,3 +38,14 @@ class People(models.Model):
 
     def __str__(self):
             return self.user.phoneno
+
+class ZoneAdmin(models.Model):
+
+    user = models.ForeignKey(
+            settings.AUTH_USER_MODEL,
+            on_delete=models.CASCADE,
+        )
+    district = models.CharField(max_length = 50)
+
+    def __str__(self):
+            return self.user.phoneno

@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from . models import CustomUser,People
+from . models import CustomUser,People,ZoneAdmin
+from sellershop.models import Shop
 
 class LoginApi(APIView):
     
@@ -28,15 +29,13 @@ class LoginApi(APIView):
                 contextfrontend  = {"phoneno":user.phoneno,"firstname":user.firstname,
                         "lastname":user.lastname,"aadharno":people.aadharno,"tag":people.tag}
             elif login_type == 2:
-                pass
-                seller = Seller.objects.filter(user=user)[0]
+                seller = Shop.objects.filter(user=user)[0]
                 contextfrontend  = {"phoneno":user.phoneno,"firstname":user.firstname,
                         "lastname":user.lastname,"shopname":seller.shopname,"gst_no":seller.gst_no,"categ":seller.categ}
             else:
-                pass
-            #     admin = ZoneAdmin.objects.filter(user=user)[0]
-            #     contextfrontend  = {"phoneno":user.phoneno,"firstname":user.firstname,
-            #             "lastname":user.lastname,"aadharno":admin.aadharno,"tag":admin.tag}
+                zoneadmin = ZoneAdmin.objects.filter(user=user)[0]
+                contextfrontend  = {"phoneno":user.phoneno,"firstname":user.firstname,
+                        "lastname":user.lastname,"district":zoneadmin.district,"id":zoneadmin.id}
             return Response(contextfrontend)
 
         else:
@@ -52,13 +51,13 @@ class RegisterApi(APIView):
         f_password = request.data.get('password')
         f_fname = request.data.get('firstname')
         f_lname = request.data.get('lastname')
-        login_type = request.data.get('type')
+        login_type = int(request.data.get('type'))
 
         try:
             user,created = CustomUser.objects.get_or_create(phoneno = f_phoneno)
 
             if created:
-                user.firstname = f_fname 
+                user.firstname = f_fname
                 user.lastname = f_lname
                 user.set_password(f_password)
                 user.save()
@@ -79,23 +78,30 @@ class RegisterApi(APIView):
                     people.save()
 
             elif login_type == 2:
-                shopname = request.data.get('shopname')
-                gst_no = request.data.get('gst_no')
-                categ = request.data.get('categ')
+                shopname = request.data.get('name')
+                gst_no = request.data.get('gst')
+                lat = float(request.data.get('lat'))
+                lon = float(request.data.get('lon'))
+                desc = request.data.get('desc')
+                categ = request.data.get('cat')
 
                 shop,created = Shop.objects.get_or_create(user = user)
 
-                if created:
-                    shop.shopname =shopname 
-                    shop.gst_no =gst_no 
-                    shop.categ = categ
-                    shop.save()
-            else:
-                pass
-                # admin = ZoneAdmin.objects.filter(user=user)[0]
-                # contextfrontend  = {"phoneno":user.phoneno,"firstname":user.firstname,
-                #         "lastname":user.lastname,"aadharno":admin.aadharno,"tag":admin.tag}
+                shop.shopname = shopname 
+                shop.gst_no = gst_no 
+                shop.categ = categ
 
+                shop.isverify = 0
+                shop.lat = lat
+                shop.loc = lon
+                shop.save()
+            else:
+                district = request.data.get('district')
+
+                zoneadmin,created = ZoneAdmin.objects.get_or_create(user = user)
+
+                zoneadmin.district = district
+                zoneadmin.save()
             return Response({"Success"})
         except Exception as e:
             print(e)

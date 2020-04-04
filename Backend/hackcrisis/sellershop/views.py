@@ -8,18 +8,13 @@ from rest_framework import status
 from . serializers import ItemSerializer,ShopSerializer,OrderSerializer
 import requests
 from .models import Shop,Item,Order
-import json
-from os import listdir
-from os.path import isfile, join
+
 from django.contrib.auth import authenticate,login
-import os
 from users.models import CustomUser
 import time
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, renderer_classes
-from django.http import JsonResponse
-from google.cloud import storage
-from datetime import timedelta
+
 
 class ShopList(APIView):
 	def get(self,request):
