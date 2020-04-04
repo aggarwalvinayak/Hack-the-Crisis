@@ -19,4 +19,4 @@ class Announcements(models.Model):
 	description = models.CharField(max_length = 200)
 
 	def __str__(self):
-			return str(str(self.id) + " " + self.title
+			return str(str(self.id)) + " " + self.title
