@@ -73,7 +73,6 @@ class ItemList(APIView):
 		quantity_max = request.POST.get('quant')
 		shop = Shop.objects.get(pk=request.POST.get('shop'))
 		description=request.POST.get('desc')
-		categ = request.POST.get('cat')
-		product=Item(itemname=itemname,categ=cat,price=price,description=description,shop=shop,quantity_max=quantity_max)
+		product=Item(itemname=itemname,price=price,description=description,shop=shop,quantity_max=quantity_max)
 		product.save()
 		return Response("Item Added")

@@ -24,7 +24,6 @@ class Item(models.Model):
 	quantity_max = models.CharField(max_length = 100)
 	shop = models.ForeignKey(Shop,on_delete=models.CASCADE)
 	description = models.TextField()
-	categ= models.CharField(max_length = 100)
 
 	def __str__(self):
 		return str(str(self.id) + " " + str(self.itemname) )
