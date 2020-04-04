@@ -6,6 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop/routes/dashboard.dart';
 import 'package:shop/utilities/api_calls.dart';
+import 'package:location/location.dart';
+
 
 class SignupCard extends StatefulWidget {
   final Function changeAuth;
@@ -16,7 +18,6 @@ class SignupCard extends StatefulWidget {
 }
 
 class _SignupCardState extends State<SignupCard> {
-
   static final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   String _category;
@@ -27,7 +28,7 @@ class _SignupCardState extends State<SignupCard> {
       phoneNumberController,
       passwordController;
 
-  _SignupCardState(){
+  _SignupCardState() {
     firstNameController = new TextEditingController();
     lastNameController = new TextEditingController();
     shopNameController = new TextEditingController();
@@ -37,41 +38,85 @@ class _SignupCardState extends State<SignupCard> {
   }
 
   void register(BuildContext context) async {
-    if(!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState.validate()) return;
 
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
           child: SpinKitCubeGrid(
-            color:  Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       );
     }));
 
-    var response = await ApiCalls.postRequest(['registerapi'], {
-    "phoneno":phoneNumberController.text,"firstname":firstNameController.text,'lastname':lastNameController.text,
-      "shopname":shopNameController.text,"gst":gstController.text,"cat":_category, 'password':passwordController.text, 'lat': 1,
-      'lon': 2
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+
+    print(_locationData);
+
+    /*
+    var response = await ApiCalls.postRequest([
+      'registerapi'
+    ], {
+      "phoneno": phoneNumberController.text,
+      "firstname": firstNameController.text,
+      'lastname': lastNameController.text,
+      "name": shopNameController.text,
+      "gst": gstController.text,
+      "cat": _category,
+      'password': passwordController.text,
+      'lat': 1,
+      'lon': 2,
+      "type": 2
     });
     print(response);
 
-    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+    SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
     _sharedPreferences.setBool('isLoggedIn', true);
     String _shopDetailsString = jsonEncode({
       'phoneNumber': phoneNumberController.text,
       'gst': gstController.text,
-      'id': response[0],
-      'location': ['1', '2'],
+      'firstName': firstNameController.text,
+      'lastName': lastNameController.text,
+      'shop':shopNameController.text,
+      'category': _category,
+      'id': '12345',
       'verificationStatus': true
     });
     _sharedPreferences.setString('shopDetails', _shopDetailsString);
 
     Navigator.pop(context);
 
-
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard( shopDetailsString: _shopDetailsString,)));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Dashboard(
+                  shopDetailsString: _shopDetailsString,
+                )));*/
   }
 
   @override

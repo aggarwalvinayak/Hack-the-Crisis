@@ -19,21 +19,36 @@ class OrderCard extends StatelessWidget {
             padding: EdgeInsets.all(20),
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderPage(order: order))),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => OrderPage(order: order))),
             child: Column(children: <Widget>[
-              Align(
-                  alignment: Alignment.topLeft,
-                  child:Text(order.getToLocation, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+              Container(
+                  margin: EdgeInsets.all(10),
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(order.getToLocation,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)))),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
+                  Widget>[
+                Text('Item',
+                    style:
+                        TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
+                Text('Quantity',
+                    style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic))
+              ]),
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: order.getItemId.length,
                   itemBuilder: (context, index) {
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(order.getItemId[index]),
-                          Text(order.getQuantity[index].toString())
-                        ]);
+                    return Container(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(order.getItemId[index], style: TextStyle(fontSize: 15)),
+                              Text(order.getQuantity[index].toString(), style: TextStyle(fontSize: 15))
+                            ]));
                   })
             ])));
   }

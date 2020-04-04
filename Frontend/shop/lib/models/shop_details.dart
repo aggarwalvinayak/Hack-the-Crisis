@@ -3,26 +3,20 @@ import 'dart:convert';
 class ShopDetails {
   final String id;
   final String gst;
+  final String shopName;
   final String phoneNumber;
+  final String firstName;
+  final String lastName;
   final String category;
-  final List<double> location;
   final bool verificationStatus;
-
-  ShopDetails(
-      {this.id,
-      this.gst,
-      this.phoneNumber,
-      this.location,
-      this.verificationStatus,
-      this.category});
 
   ShopDetails.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        gst = json['gst'],
-        location = List<String>.from(json['location'])
-            .map((e) => double.parse(e))
-            .toList(),
+        gst = json['gst'].toString(),
+        firstName = json['firstName'],
+        lastName = json['lastName'],
+        category = json['category'],
         verificationStatus = json['verificationStatus'],
-        phoneNumber = json['phoneNumber'],
-        category = json['category'];
+        shopName = json['shopName'],
+        phoneNumber = json['phoneNumber'].toString();
 }

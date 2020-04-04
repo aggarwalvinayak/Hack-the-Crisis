@@ -30,48 +30,61 @@ class _LoginCardState extends State<LoginCard> {
   void login(BuildContext context) async {
     if (!_formKey.currentState.validate()) return;
 
-    String _phoneNumber, _password;
-    _phoneNumber = phoneNumberController.text;
-    _password = passwordController.text;
+    phoneNumberController.text;
+    passwordController.text;
 
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
           child: SpinKitCubeGrid(
-            color:  Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       );
     }));
 
-    var response = await ApiCalls.postRequest(['loginapi'], {'phoneno':_phoneNumber, 'password':_password, 'type':3});
+    var response = await ApiCalls.postRequest(['loginapi'],
+        {'phoneno': phoneNumberController.text, 'password': passwordController.text, 'type': 2});
     print("RESPONSE:");
     print(response);
 
+    if(response[0] is String) {
+      Navigator.pop(context);
+      Scaffold.of(context).showSnackBar(SnackBar(content:Text('Incorrect phone number or password')));
+      return;
+    }
+
     String _shopDetailsString = jsonEncode({
-      'phoneNumber': '1234567890',
-      'gst': '1231433463587357',
+      'phoneNumber': response['phoneno'],
+      'gst': response['gst_no'],
       'id': '123',
-      'location': ['122.21', '121.21'],
+      'shopName':response['shopname'],
+      'category' : response['categ'],
+      'firstName': response['firstname'],
+      'lastName' : response['lastname'],
       'verificationStatus': true
     });
 
-    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+    SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
     _sharedPreferences.setBool('isLoggedIn', true);
     _sharedPreferences.setString('shopDetails', _shopDetailsString);
 
     Navigator.pop(context);
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard( shopDetailsString: _shopDetailsString,)));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Dashboard(
+                  shopDetailsString: _shopDetailsString,
+                )));
 
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => Dashboard(
         shopDetailsString: _shopDetailsString,
       ),
     ));
-
-
   }
 
   @override
@@ -109,11 +122,11 @@ class _LoginCardState extends State<LoginCard> {
                         height: 15,
                       ),
                       TextFormField(
+                        controller: phoneNumberController,
                         keyboardType: TextInputType.number,
                         validator: (val) {
-                          if(val.length == 10)
-                            return null;
-                          return 'Please enter a valid phone number';
+                          /*if (val.length == 10) return null;
+                          return 'Please enter a valid phone number';*/
                         },
                         inputFormatters: [
                           WhitelistingTextInputFormatter.digitsOnly
@@ -126,10 +139,12 @@ class _LoginCardState extends State<LoginCard> {
                         height: 20,
                       ),
                       TextFormField(
+                        controller: passwordController,
                         obscureText: true,
                         validator: (val) {
+                          /*
                           if (val.length < 8) return 'Password too short';
-                          return null;
+                          return null;*/
                         },
                         decoration: InputDecoration(
                           labelText: "Password",

@@ -13,16 +13,20 @@ class OrdersList extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       child: ordersList.isEmpty
-          ?
-          Text(
-            status == Status.PENDING ? 'No pending orders' : (status == Status.APPROVED ? 'No approved orders' : 'No completed orders'),
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 25),
-          )
+          ? Center(
+              child: Text(
+              status == Status.PENDING
+                  ? 'No pending orders'
+                  : (status == Status.APPROVED
+                      ? 'No approved orders'
+                      : 'No completed orders'),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
+            ))
           : ListView.builder(
-          itemCount: ordersList.length,
-          itemBuilder: (context, index) {
-            return OrderCard(order:ordersList[index]);
-          }),
+              itemCount: ordersList.length,
+              itemBuilder: (context, index) {
+                return OrderCard(order: ordersList[index]);
+              }),
     );
   }
 }
